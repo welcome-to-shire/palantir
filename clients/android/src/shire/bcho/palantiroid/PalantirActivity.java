@@ -6,10 +6,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 
-import shire.bcho.palantiroid.palantir.Manager;
-import shire.bcho.palantiroid.notification.NotificationManager;
-import shire.bcho.palantiroid.palantir.model.Message;
-
 /**
  * Application main activity.
  */
@@ -28,14 +24,5 @@ public class PalantirActivity extends Activity
         Intent intent = new Intent();
         intent.setAction(BOOT_INTENT);
         sendBroadcast(intent);
-
-        NotificationManager nm = new NotificationManager();
-        Manager m = new Manager("http://192.168.1.100:9092", "palantiroid");
-        Message msg = m.GetNotification();
-        if (msg != null) {
-            nm.show(this, msg.title, msg.content);
-        } else {
-            Log.d("shire-log", "no new message");
-        }
     }
 }

@@ -46,7 +46,7 @@ public class NotificationManager {
      * Emit a notification.
      */
     public void show(Context context, String title, String content) {
-        Log.w("shire-log", "emit notification");
+        Log.d("shire-log", "emit notification");
 
         NotificationCompat.Builder nb = new NotificationCompat.Builder(context)
             .setSmallIcon(R.drawable.ic_launcher)

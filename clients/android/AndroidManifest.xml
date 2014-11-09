@@ -16,12 +16,16 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".notification.NotificationReceiver">
+        <receiver android:name=".notification.NotificationReceiver"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="shire.bcho.palantiroid.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
+        <service android:name=".notification.NotificationService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 </manifest>

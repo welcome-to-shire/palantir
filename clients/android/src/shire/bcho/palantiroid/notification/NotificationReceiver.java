@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.Context;
 import android.content.BroadcastReceiver;
 
+import shire.bcho.palantiroid.notification.NotificationService;
+
 /**
  * Boot up notification check service.
  */
@@ -13,6 +15,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.w("shire-log", "receiver booted up");
+        Intent serviceIntent = new Intent(context, NotificationService.class);
+        context.startService(serviceIntent);
     }
 }

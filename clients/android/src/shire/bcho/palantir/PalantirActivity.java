@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 
+import shire.bcho.palantir.palantir.Manager;
 import shire.bcho.palantir.notification.NotificationManager;
+import shire.bcho.palantir.palantir.model.Message;
 
 /**
  * Application main activity.
@@ -25,6 +27,10 @@ public class PalantirActivity extends Activity
         intent.setAction(BOOT_INTENT);
         sendBroadcast(intent);
 
-        NotificationManager.show(this, "test", "hello, world!");
+        Manager m = new Manager("http://192.168.1.100:9092", "palantiroid");
+        Message msg = m.GetNotification();
+        if (msg != null) {
+            NotificationManager.show(this, msg.title, msg.content);
+        }
     }
 }

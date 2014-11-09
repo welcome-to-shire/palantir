@@ -7,6 +7,7 @@ import android.content.Context;
 import shire.bcho.palantiroid.R;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.app.NotificationCompat.BigTextStyle;
 
 /**
  * Notification manager.
@@ -39,7 +40,8 @@ public class NotificationManager {
         NotificationCompat.Builder nb = new NotificationCompat.Builder(context)
             .setSmallIcon(R.drawable.ic_launcher)
             .setContentTitle(title)
-            .setContentText(content);
+            .setContentText(content)
+            .setStyle(new BigTextStyle().bigText(content));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.notify(NOTIFICATION_ID, nb.build());

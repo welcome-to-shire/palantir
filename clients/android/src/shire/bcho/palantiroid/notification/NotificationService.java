@@ -2,6 +2,8 @@ package shire.bcho.palantiroid.notification;
 
 import android.util.Log;
 
+import android.widget.Toast;
+import android.content.Context;
 import android.os.Handler;
 import android.content.Intent;
 import android.app.IntentService;
@@ -9,6 +11,7 @@ import android.app.IntentService;
 import shire.bcho.palantiroid.palantir.Manager;
 import shire.bcho.palantiroid.notification.NotificationManager;
 import shire.bcho.palantiroid.palantir.model.Message;
+import shire.bcho.palantiroid.palantir.PalantirError;
 
 public class NotificationService extends IntentService {
 
@@ -23,10 +26,20 @@ public class NotificationService extends IntentService {
     private Runnable task = new Runnable() {
         @Override
         public void run() {
-            Message message = messageManager.GetNotification();
-            if (message != null) {
-                noti.show(getContext(), message.title, message.content);
+            Context context = (Context) getContext();
+
+            try {
+                Message message = messageManager.GetNotification();
+                if (message != null) {
+                    noti.show(context, message.title, message.content);
+                }
+            } catch (PalantirError e) {
+                Log.w("shire-log", e.getMessage());
+
+                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG)
+                    .show();
             }
+
             timerHandler.postDelayed(this, checkDurationMillis);
         }
     };

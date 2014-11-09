@@ -7,11 +7,13 @@ import java.lang.StringBuilder;
 import java.io.InputStreamReader;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import shire.bcho.palantiroid.palantir.model.Message;
 import shire.bcho.palantiroid.palantir.model.Error;
+import shire.bcho.palantiroid.palantir.PalantirError;
 
 /**
  * Notification service manager.
@@ -42,17 +44,17 @@ public class Manager {
     /**
      * Get a notification.
      */
-    public Message GetNotification() {
+    public Message GetNotification() throws PalantirError {
         try {
             URL url = new URL(GetFullPath("/" + subject));
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.disconnect();
-            int status = conn.getResponseCode() / 100;
+            int status = conn.getResponseCode();
 
             Gson gson = new Gson();
             InputStreamReader reader;
 
-            switch (status) {
+            switch (status / 100) {
                 case 2:
                     reader = new InputStreamReader(conn.getInputStream());
                     Message m = gson.fromJson(reader, Message.class);
@@ -64,13 +66,16 @@ public class Manager {
                     Error err = gson.fromJson(reader, Error.class);
                     Log.d("shire-log", err.reason);
 
-                    return null;
+                    if (status == 404) {
+                        return null;
+                    }
+
+                    throw new PalantirError(err.reason);
             }
         } catch (Exception e) {
             Log.w("shire-log", "error occured");
+            throw new PalantirError(e.getMessage());
         }
-
-        return null;
     }
 
     /**

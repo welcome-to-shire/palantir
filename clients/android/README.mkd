@@ -1,0 +1,6 @@
+# Palantiroid
+
+## TODO
+
+- [ ] refactor ui
+- [ ] settings

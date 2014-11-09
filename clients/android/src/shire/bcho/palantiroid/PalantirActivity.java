@@ -29,10 +29,11 @@ public class PalantirActivity extends Activity
         intent.setAction(BOOT_INTENT);
         sendBroadcast(intent);
 
+        NotificationManager nm = new NotificationManager();
         Manager m = new Manager("http://192.168.1.100:9092", "palantiroid");
         Message msg = m.GetNotification();
         if (msg != null) {
-            NotificationManager.show(this, msg.title, msg.content);
+            nm.show(this, msg.title, msg.content);
         } else {
             Log.d("shire-log", "no new message");
         }

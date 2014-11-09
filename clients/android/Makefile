@@ -1,4 +1,4 @@
-.PHONY: debug-build debug-install run
+.PHONY: debug-build debug-install run attach-logcat
 
 PACKAGE=shire.bcho.palantir
 MAIN_ACTIVITY=${PACKAGE}.PalantirActivity
@@ -13,3 +13,6 @@ debug-install: debug-build
 
 debug-build: ${TARGET_APK}
 	ant debug
+
+attach-logcat:
+	adb logcat | grep "/shire-log"

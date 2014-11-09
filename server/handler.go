@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -25,6 +26,7 @@ func createNotification(w http.ResponseWriter, r *http.Request) {
 
 	payload, err := parseJsonBody(r)
 	if err != nil {
+		log.Print(err)
 		errorResponse(w, 400, "Bad Payload")
 		return
 	}
@@ -43,6 +45,7 @@ func createNotification(w http.ResponseWriter, r *http.Request) {
 	storage := GetStorageInstance()
 	ticket, err := storage.Create(subject, title.(string), content.(string))
 	if err != nil {
+		log.Print(err)
 		errorResponse(w, 500, "%q", err)
 		return
 	}
@@ -50,7 +53,9 @@ func createNotification(w http.ResponseWriter, r *http.Request) {
 	resp := TicketResponse{ticket}
 	rv, err := json.Marshal(resp)
 	if err != nil {
+		log.Print(err)
 		errorResponse(w, 500, "%q", err)
+		return
 	}
 
 	w.WriteHeader(201)
@@ -63,12 +68,14 @@ func getNotification(w http.ResponseWriter, r *http.Request) {
 	storage := GetStorageInstance()
 	message, err := storage.GetOne(vars["subject"])
 	if err != nil {
+		log.Print(err)
 		errorResponse(w, 404, "404 Not Found")
 		return
 	}
 
 	rv, err := json.Marshal(message)
 	if err != nil {
+		log.Print(err)
 		errorResponse(w, 500, "%q", err)
 		return
 	}
@@ -81,6 +88,7 @@ func errorResponse(w http.ResponseWriter, status int, reason_fmt string, a ...in
 	e := ErrorResponse{fmt.Sprintf(reason_fmt, a...)}
 	rv, err := json.Marshal(e)
 	if err != nil {
+		log.Print(err)
 		http.Error(w, "Server Error: unable to marshal response", 500)
 		return
 	}

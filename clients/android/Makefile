@@ -7,9 +7,9 @@ TARGET_APK=bin/Palantir-debug.apk
 run: debug-install
 	adb shell am start -n ${PACKAGE}/${MAIN_ACTIVITY}
 
-debug-install:
+debug-install: debug-build
 	adb uninstall ${PACKAGE}
 	adb install -r ${TARGET_APK}
 
-debug-build:
+debug-build: ${TARGET_APK}
 	ant debug

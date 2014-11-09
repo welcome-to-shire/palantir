@@ -1,4 +1,4 @@
-package shire.bcho.palantir.palantir.model;
+package shire.bcho.palantiroid.palantir.model;
 
 import com.google.gson.annotations.SerializedName;
 

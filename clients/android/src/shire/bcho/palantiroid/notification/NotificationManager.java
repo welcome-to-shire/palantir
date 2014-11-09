@@ -1,10 +1,10 @@
-package shire.bcho.palantir.notification;
+package shire.bcho.palantiroid.notification;
 
 import android.util.Log;
 
-import shire.bcho.palantir.R;
 import android.content.Intent;
 import android.content.Context;
+import shire.bcho.palantiroid.R;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 

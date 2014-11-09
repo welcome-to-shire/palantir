@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="shire.bcho.palantir"
+      package="shire.bcho.palantiroid"
       android:versionCode="1"
       android:versionName="1.0">
 
@@ -16,10 +16,10 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".notification.Receiver">
+        <receiver android:name=".notification.NotificationReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="shire.bcho.palantir.BOOT_COMPLETED" />
+                <action android:name="shire.bcho.palantiroid.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 

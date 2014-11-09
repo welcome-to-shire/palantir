@@ -1,4 +1,4 @@
-package shire.bcho.palantir.notification;
+package shire.bcho.palantiroid.notification;
 
 import android.util.Log;
 

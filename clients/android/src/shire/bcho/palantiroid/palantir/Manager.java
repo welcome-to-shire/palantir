@@ -1,4 +1,4 @@
-package shire.bcho.palantir.palantir;
+package shire.bcho.palantiroid.palantir;
 
 import java.net.URL;
 import java.net.HttpURLConnection;
@@ -10,8 +10,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
-import shire.bcho.palantir.palantir.model.Message;
-import shire.bcho.palantir.palantir.model.Error;
+import shire.bcho.palantiroid.palantir.model.Message;
+import shire.bcho.palantiroid.palantir.model.Error;
 
 /**
  * Notification service manager.
@@ -52,8 +52,6 @@ public class Manager {
             Gson gson = new Gson();
             InputStreamReader reader;
 
-            Log.w("shire-log", "" + status);
-
             switch (status) {
                 case 2:
                     reader = new InputStreamReader(conn.getInputStream());
@@ -64,7 +62,7 @@ public class Manager {
                 default:
                     reader = new InputStreamReader(conn.getErrorStream());
                     Error err = gson.fromJson(reader, Error.class);
-                    Log.w("shire-log", err.reason);
+                    Log.d("shire-log", err.reason);
 
                     return null;
             }

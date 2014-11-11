@@ -13,17 +13,11 @@ import (
 	palantir "github.com/welcome-to-shire/palantir-go"
 )
 
-type ErrorResponse struct {
-	Error string `json:"error"`
-}
-
-type TicketResponse struct {
-	Ticket string `json:"ticket"`
-}
-
 func createNotification(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	subject := vars["subject"]
+
+	log.Printf("creating new notification for %s", subject)
 
 	payload, err := parseJsonBody(r)
 	if err != nil {
@@ -51,20 +45,14 @@ func createNotification(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp := TicketResponse{ticket}
-	rv, err := json.Marshal(resp)
-	if err != nil {
-		log.Print(err)
-		errorResponse(w, 500, "%q", err)
-		return
-	}
-
 	w.WriteHeader(201)
-	w.Write(rv)
+	w.Write(palantir.Ticket{ticket}.MustMarshal())
 }
 
 func getNotification(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
+
+	log.Printf("sending notification from %s", vars["subject"])
 
 	storage := GetStorageInstance()
 	message, err := storage.GetOne(vars["subject"])

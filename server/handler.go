@@ -10,6 +10,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	palantir "github.com/welcome-to-shire/palantir-go"
 )
 
 type ErrorResponse struct {
@@ -85,15 +86,9 @@ func getNotification(w http.ResponseWriter, r *http.Request) {
 }
 
 func errorResponse(w http.ResponseWriter, status int, reason_fmt string, a ...interface{}) {
-	e := ErrorResponse{fmt.Sprintf(reason_fmt, a...)}
-	rv, err := json.Marshal(e)
-	if err != nil {
-		log.Print(err)
-		http.Error(w, "Server Error: unable to marshal response", 500)
-		return
-	}
-
 	w.WriteHeader(status)
+
+	rv := palantir.Error{fmt.Sprintf(reason_fmt, a...)}.MustMarshal()
 	w.Write(rv)
 }
 

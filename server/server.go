@@ -2,7 +2,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -34,27 +33,4 @@ func (s *Server) Setup() {
 func (s Server) Start() {
 	log.Printf("server start listening at: %s", s.Bind())
 	log.Fatal(http.ListenAndServe(s.Bind(), s.router))
-}
-
-func main() {
-	var server Server
-
-	flag.StringVar(&server.Host, "host", "127.0.0.1", "bind host")
-	flag.UintVar(&server.Port, "port", 9092, "bind port")
-	flag.Parse()
-
-	setupLogger()
-	setupStorage()
-
-	server.Setup()
-	server.Start()
-}
-
-func setupStorage() {
-	GetStorageInstance()
-}
-
-func setupLogger() {
-	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	log.SetPrefix("Palantír ")
 }

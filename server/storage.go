@@ -1,12 +1,16 @@
 // Storage interface
 package main
 
+import (
+	palantir "github.com/welcome-to-shire/palantir-go"
+)
+
 type Storage interface {
 	// Create a message.
 	Create(subject, title, content string) (string, error)
 
 	// Get and unqueue a message.
-	GetOne(subject string) (*Message, error)
+	GetOne(subject string) (*palantir.Message, error)
 }
 
 var instance Storage

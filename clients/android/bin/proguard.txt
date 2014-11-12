@@ -1,9 +1,0 @@
-# view AndroidManifest.xml #generated:11
--keep class shire.bcho.palantiroid.PalantirActivity { <init>(...); }
-
-# view AndroidManifest.xml #generated:20
--keep class shire.bcho.palantiroid.notification.NotificationReceiver { <init>(...); }
-
-# view AndroidManifest.xml #generated:28
--keep class shire.bcho.palantiroid.notification.NotificationService { <init>(...); }
-
